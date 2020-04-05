@@ -5,6 +5,7 @@ import {NotfoundComponent} from "./shared/notfound/notfound.component";
 import {AuthGuard} from "./security/auth.guard";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
+import {TravelDetailComponent} from "./pages/travel/travel-detail/travel-detail.component";
 
 const routes: Routes = [
   {
@@ -12,8 +13,10 @@ const routes: Routes = [
     children: [
       {path: '', pathMatch: 'full', redirectTo: 'travel'},
       {path: 'travel', loadChildren: './pages/travel/travel.module#TravelModule'}
+
+
     ]
-  },
+  }  ,
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   {

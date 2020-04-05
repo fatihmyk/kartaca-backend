@@ -23,6 +23,7 @@ import {AuthenticationInterceptor} from "./security/authentication.interceptor";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {TravelDetailComponent} from "./pages/travel/travel-detail/travel-detail.component";
 
 export const createTranslateLoader = (http : HttpClient) => {
   return new TranslateHttpLoader(http,'./assets/i18n/', '.json');

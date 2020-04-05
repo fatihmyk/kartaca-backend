@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {TravelComponent} from "./travel.component";
 import {TravelDetailComponent} from "./travel-detail/travel-detail.component";
-
+import {AuthGuard} from "../../security/auth.guard";
 
 
 const routes: Routes = [
@@ -10,9 +10,10 @@ const routes: Routes = [
   {
     path: '',
     component: TravelComponent
-  },{
-    path: ':id', component: TravelDetailComponent
-  }
+  },
+  {
+    path: 'travel-detail/:id', component: TravelDetailComponent
+  },
 ];
 
 @NgModule(

@@ -2,8 +2,10 @@ package com.fatihmayuk.kartaca.backend.service.impl;
 
 import com.fatihmayuk.kartaca.backend.dto.TravelDetailDto;
 import com.fatihmayuk.kartaca.backend.dto.TravelDto;
-import com.fatihmayuk.kartaca.backend.repository.TravelRepository;
+import com.fatihmayuk.kartaca.backend.dto.UserDto;
+import com.fatihmayuk.kartaca.backend.model.User;
 import com.fatihmayuk.kartaca.backend.service.LoggerService;
+import com.fatihmayuk.kartaca.backend.util.SecurityContextUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -13,22 +15,18 @@ import org.springframework.stereotype.Service;
 public class LoggerServiceImpl implements LoggerService {
 
     private final ModelMapper modelMapper;
-
-
-    public String getCurrentUser(){
-
-
-        return "";
-    }
+    private final KafkaServiceImpl kafkaService;
 
     @Override
-    public TravelDetailDto sendToLoggerApi(TravelDto travelDto, String username) {
+    public void sendToLoggerApi(TravelDto travelDto) {
 
         TravelDetailDto travelDetailDto = modelMapper.map(travelDto,TravelDetailDto.class);
+        UserDto userDto=modelMapper.map(travelDto.getUser(), UserDto.class);
+        travelDetailDto.setCurrentUserName(SecurityContextUtils.getCurrentUser());
+        travelDetailDto.setTravelUser(userDto);
 
-        travelDetailDto.setCurrentUserName(username);
+        kafkaService.kafkaSendMessage(travelDetailDto);
 
-        return travelDetailDto;
 
     }
 }

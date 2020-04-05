@@ -11,60 +11,59 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class TravelDetailComponent implements OnInit {
 
-  @ViewChild('tplDateCell') tplDateCell : TemplateRef<any>;
+  @ViewChild('tplDateCell') tplDateCell: TemplateRef<any>;
 
-  //issueDetail={};   //ARRAY DEGIL OBJECT. JSONDA OBJECT OLARAK DURUYOR.
   travelDetailForm: FormGroup;
   // History Table Options
-  columns=[];
+  columns = [];
 
   // Route Parameter Options
   id: number;
   private sub: any;
 
-  constructor(private route:ActivatedRoute,
-              private travelService:TravelService,
-              private userService:UserService,
-              private formBuilder: FormBuilder,) { }
+  constructor(private route: ActivatedRoute,
+              private travelService: TravelService,
+              private userService: UserService,
+              private formBuilder: FormBuilder,) {
+  }
 
   ngOnInit() {
 
     this.sub = this.route.params.subscribe(params => {
-      this.id= +params['id'];
+      this.id = +params['id'];
       this.loadTravelDetails();
     });
 
-    this.columns = [{prop:'id', name:'No', maxWidth:30 },
-      { prop:'name', name: 'Name', sortable:false },
-      { prop:'date', name: 'Travel Date' },
-      { prop:'location', name: 'Location' , sortable:false },
-      { prop:'notes', name: 'Notes' , sortable:false },
-      { prop:'travelUser.nameSurname', name: 'User' , sortable:false },
+    this.columns = [{prop: 'id', name: 'No', maxWidth: 30},
+      {prop: 'name', name: 'Name', sortable: false},
+      {prop: 'date', name: 'Travel Date'},
+      {prop: 'location', name: 'Location', sortable: false},
+      {prop: 'notes', name: 'Notes', sortable: false},
+      {prop: 'travelUser.nameSurname', name: 'User', sortable: false},
     ];
 
   }
 
   private loadTravelDetails() {
     this.travelService.getById(this.id).subscribe(response => {
-      this.travelDetailForm = this.createIssueDetailFormGroup(response);
+      this.travelDetailForm = this.createTravelDetailFormGroup(response);
     });
   }
 
-  createIssueDetailFormGroup(response) {
+  createTravelDetailFormGroup(response) {
     return this.formBuilder.group({
       id: response['id'],
       name: response['name'],
       location: response['location'],
       date: this.fromJsonDate(response['date']),
       notes: response['notes'],
-      travelUser: response['travelUser'] ? response ['travelUser']['id']:''
+      user: response['user'] ? response ['user']['nameSurname'] : ''
     });
   }
 
-    fromJsonDate(jDate): string {
-      const bDate: Date = new Date(jDate);
-      return bDate.toISOString().substring(0,10);
-    }
-
+  fromJsonDate(jDate): string {
+    const bDate: Date = new Date(jDate);
+    return bDate.toISOString().substring(0, 10);
+  }
 
 }

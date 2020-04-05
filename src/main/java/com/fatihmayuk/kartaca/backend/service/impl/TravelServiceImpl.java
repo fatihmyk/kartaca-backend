@@ -1,13 +1,12 @@
 package com.fatihmayuk.kartaca.backend.service.impl;
 
-import com.fatihmayuk.kartaca.backend.dto.TravelDetailDto;
 import com.fatihmayuk.kartaca.backend.dto.TravelDto;
-import com.fatihmayuk.kartaca.backend.dto.UserDto;
 import com.fatihmayuk.kartaca.backend.model.Travel;
 import com.fatihmayuk.kartaca.backend.model.User;
 import com.fatihmayuk.kartaca.backend.repository.TravelRepository;
 import com.fatihmayuk.kartaca.backend.repository.UserRepository;
 import com.fatihmayuk.kartaca.backend.service.TravelService;
+import com.fatihmayuk.kartaca.backend.util.SecurityContextUtils;
 import com.fatihmayuk.kartaca.backend.util.TPage;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -42,11 +41,11 @@ public class TravelServiceImpl implements TravelService {
         Instant instant = date.toInstant();
         //Converting the Date to LocalDate
         LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-
-        travelDto.setDate(localDate);
-
-
+        User user = userRepository.findByUsername(SecurityContextUtils.getCurrentUser());
         Travel traveldb = modelMapper.map(travelDto,Travel.class);
+        traveldb.setDate(localDate);
+        traveldb.setUser(user);
+
         traveldb = travelRepository.save(traveldb);
         return modelMapper.map(traveldb,TravelDto.class);
     }
@@ -79,8 +78,7 @@ public class TravelServiceImpl implements TravelService {
     @Transactional
     public TravelDto update(Long id, TravelDto travelDto) {
         Travel traveldb = travelRepository.getOne(id);
-        UserDto userDto = travelDto.getUser();
-        User user = modelMapper.map(userDto,User.class);
+        User user = userRepository.findByUsername(SecurityContextUtils.getCurrentUser());
 
         traveldb.setName(travelDto.getName());
         traveldb.setDate(travelDto.getDate());

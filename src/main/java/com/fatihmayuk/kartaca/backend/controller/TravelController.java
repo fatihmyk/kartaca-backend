@@ -20,16 +20,12 @@ import java.util.UUID;
 @RequestMapping(ApiPaths.TravelCtrl.CTRL)
 public class TravelController {
 
-    @Value("${fatihmayuk.kafka.topic}")
-    private String topic;
 
-    private final KafkaTemplate<String, TravelDetailDto> kafkaTemplate;
 
     private final LoggerServiceImpl loggerService;
     private final TravelServiceImpl travelServiceImpl;
 
-    public TravelController(KafkaTemplate<String, TravelDetailDto> kafkaTemplate, LoggerServiceImpl loggerService, TravelServiceImpl travelServiceImpl) {
-        this.kafkaTemplate = kafkaTemplate;
+    public TravelController(  LoggerServiceImpl loggerService, TravelServiceImpl travelServiceImpl) {
         this.loggerService = loggerService;
         this.travelServiceImpl = travelServiceImpl;
     }
@@ -45,27 +41,24 @@ public class TravelController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get By Id Operation", response = TravelDto.class)
-    public ResponseEntity<TravelDetailDto> getById(@PathVariable(value = "id", required = true) Long id) {
+    public ResponseEntity<TravelDto> getById(@PathVariable(value = "id", required = true) Long id) {
         TravelDto travelDto = travelServiceImpl.getById(id);
-        String username =  loggerService.getCurrentUser();
-        TravelDetailDto travelDetailDto = loggerService.sendToLoggerApi(travelDto,username);
+        loggerService.sendToLoggerApi(travelDto);
 
-        kafkaTemplate.send(topic, UUID.randomUUID().toString(),travelDetailDto);
-
-        return ResponseEntity.ok(travelDetailDto);
+        return ResponseEntity.ok(travelDto);
     }
 
-
-    @PostMapping
+    @PostMapping()
     @ApiOperation(value = "Create Operation", response = TravelDto.class)
     public ResponseEntity<TravelDto> createTravel(@Valid @RequestBody TravelDto travelDto) {
 
         return ResponseEntity.ok(travelServiceImpl.save(travelDto));
     }
 
+
     @PutMapping("/{id}")
-    @ApiOperation(value = "Update Operation", response = TravelDto.class)
-    public ResponseEntity<TravelDto> updateProject(@PathVariable(value = "id", required = true) Long id, @Valid @RequestBody TravelDto travelDto) {
+    @ApiOperation(value = "Create Operation", response = TravelDto.class)
+    public ResponseEntity<TravelDto> createTravel(@PathVariable(value = "id", required = true) Long id, @Valid @RequestBody TravelDto travelDto) {
 
         return ResponseEntity.ok(travelServiceImpl.update(id, travelDto));
     }

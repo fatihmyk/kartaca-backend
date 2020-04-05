@@ -5,6 +5,8 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmationComponent} from "../../shared/confirmation/confirmation.component";
 import {UserService} from "../../services/shared/user.service";
+import {Router} from "@angular/router";
+import {id} from "@swimlane/ngx-datatable/release/utils";
 
 @Component({
   selector: 'app-travel',
@@ -23,10 +25,12 @@ export class TravelComponent implements OnInit {
   managerOptions = [];
   activeUser = {};
 
+
   constructor(private travelService : TravelService,
               private modalService: BsModalService,
               private formBuilder: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              protected router : Router) { }
 
   ngOnInit() {
 
@@ -36,8 +40,8 @@ export class TravelComponent implements OnInit {
       { prop:'name', name: 'Travel Name', sortable:false },
       { prop:'date', name: 'Travel Date' , sortable:true },
       { prop:'user.nameSurname', name: 'User' , sortable:false },
-      { name: 'Actions', flexGrow:1 ,sortable:false }
-      ];
+      { prop:'id', name: 'Details' , cellTemplate: this.tplProjectDeleteCell, flexGrow:1 ,sortable:false }
+    ];
 
     this.setPage({ offset: 0 });
 
@@ -62,8 +66,8 @@ export class TravelComponent implements OnInit {
 
   saveTravel() {
    /* debugger*/
-    if(!this.travelForm.valid)
-      return;
+    console.log("FATIH");
+
 
     this.travelService.createTravel(this.travelForm.value).subscribe(
       response => {
@@ -128,6 +132,12 @@ export class TravelComponent implements OnInit {
       else if (result ===false){}
     }
     );
+
+  }
+
+  getTravelDetail(id:number){
+
+    this.router.navigate(['travel',id]);
 
   }
 }

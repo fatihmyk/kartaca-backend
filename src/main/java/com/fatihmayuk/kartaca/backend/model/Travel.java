@@ -35,7 +35,7 @@ public class Travel implements Serializable {
     private String notes;
 
     @JoinColumn(name = "travel_user_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
 }

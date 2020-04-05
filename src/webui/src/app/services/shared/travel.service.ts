@@ -37,7 +37,7 @@ export class TravelService{
   }
 
   getById(id): Observable<any> {
-    return this.apiService.get(this.TRAVEL_PATH,id).pipe(map(
+    return this.apiService.get(this.TRAVEL_PATH+'/'+id).pipe(map(
       res => {
         if (res) {
           return res;
