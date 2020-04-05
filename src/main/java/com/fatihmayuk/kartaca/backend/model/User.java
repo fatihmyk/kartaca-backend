@@ -26,7 +26,7 @@ public class User implements Serializable {
     @Column(name = "name_surname",length = 200)
     private String nameSurname;
 
-    @Column(name = "pwd", length = 50)
+    @Column(name = "pwd")
     private String password;
 
     @Column(name = "email", length = 100)

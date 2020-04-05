@@ -3,40 +3,40 @@
   <form *ngIf="travelDetailForm" [formGroup]="travelDetailForm" >
     <div class="row">
       <div class="col-md-12">
-        <label class="badge">Details</label>
-        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="details"
+        <label class="badge">Travel Name</label>
+        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="name"
                   class="form-control"></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <label class="badge">Details</label>
-        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="details"
+        <label class="badge">Travel Date</label>
+        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="date"
                   class="form-control"></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <label class="badge">Details</label>
-        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="details"
+        <label class="badge">Travel Location</label>
+        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="location"
                   class="form-control"></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <label class="badge">Details</label>
-        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="details"
+        <label class="badge">Travel Notes</label>
+        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="notes"
                   class="form-control"></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12">
-        <label class="badge">Details</label>
-        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="details"
+        <label class="badge">Travel User</label>
+        <textarea readonly class="form-control" rows="3" aria-multiline="true" formControlName="travelUser.nameSurname"
                   class="form-control"></textarea>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <div class="col-lg-6 col-md-6"></div>
       <div class="col-lg-6 col-md-6">
         <div class="pull-right">
-          <button type="submit" name="submit" class="btn btn-block btn-primary">Back</button>
+          <a class="btn btn-primary" href="/travel" role="button">Back</a>
         </div>
       </div>
     </div>

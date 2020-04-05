@@ -58,7 +58,7 @@ public class TravelController {
 
     @PostMapping
     @ApiOperation(value = "Create Operation", response = TravelDto.class)
-    public ResponseEntity<TravelDto> createProject(@Valid @RequestBody TravelDto travelDto) {
+    public ResponseEntity<TravelDto> createTravel(@Valid @RequestBody TravelDto travelDto) {
 
         return ResponseEntity.ok(travelServiceImpl.save(travelDto));
     }

@@ -11,7 +11,6 @@ import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr
 import {ApiService} from "./services/api.service";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TravelService} from "./services/shared/travel.service";
-import {IssueService} from "./services/shared/issue.service";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
@@ -69,7 +68,7 @@ export const createTranslateLoader = (http : HttpClient) => {
     ),
     ReactiveFormsModule
   ],
-  providers: [ApiService,TravelService,IssueService,UserService,AuthenticationService,AuthGuard,
+  providers: [ApiService,TravelService,UserService,AuthenticationService,AuthGuard,
     {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true},
     {provide:HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi:true}],
 

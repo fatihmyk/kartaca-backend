@@ -10,9 +10,7 @@ const routes: Routes = [
   {
     path: '', component: AppLayoutComponent, canActivate: [AuthGuard],
     children: [
-      {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
-      {path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardModule'},
-      {path: 'issue', loadChildren: './pages/issue/issue.module#IssueModule'},
+      {path: '', pathMatch: 'full', redirectTo: 'travel'},
       {path: 'travel', loadChildren: './pages/travel/travel.module#TravelModule'}
     ]
   },

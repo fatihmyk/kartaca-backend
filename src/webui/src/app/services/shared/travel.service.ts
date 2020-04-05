@@ -7,13 +7,13 @@ import {map} from "rxjs/internal/operators";
 @Injectable()
 export class TravelService{
 
-  private PROJECT_PATH = "/travel";
+  private TRAVEL_PATH = "/travel";
 
   constructor(private apiService: ApiService) {
   }
 
   getAll(page): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH+'/pagination',page).pipe(map(
+    return this.apiService.get(this.TRAVEL_PATH+'/pagination',page).pipe(map(
       res => {
         if (res) {
           return res;
@@ -25,7 +25,7 @@ export class TravelService{
   }
 
   getAllNP(): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH).pipe(map(
+    return this.apiService.get(this.TRAVEL_PATH).pipe(map(
       res => {
         if (res) {
           return res;
@@ -37,7 +37,7 @@ export class TravelService{
   }
 
   getById(id): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH,id).pipe(map(
+    return this.apiService.get(this.TRAVEL_PATH,id).pipe(map(
       res => {
         if (res) {
           return res;
@@ -50,7 +50,7 @@ export class TravelService{
   }
 
   createTravel(travel) : Observable<any> {
-    return this.apiService.post(this.PROJECT_PATH,travel).pipe(map(
+    return this.apiService.post(this.TRAVEL_PATH,travel).pipe(map(
       res => {
         if (res) {
           return res;
@@ -63,7 +63,7 @@ export class TravelService{
   }
 
   delete(id): Observable<any> {
-    return this.apiService.delete(this.PROJECT_PATH+'/'+id).pipe(map(
+    return this.apiService.delete(this.TRAVEL_PATH+'/'+id).pipe(map(
       res => {
         if (res) {
           return res;

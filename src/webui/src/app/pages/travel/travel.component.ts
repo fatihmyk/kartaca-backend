@@ -36,7 +36,7 @@ export class TravelComponent implements OnInit {
       { prop:'name', name: 'Travel Name', sortable:false },
       { prop:'date', name: 'Travel Date' , sortable:true },
       { prop:'user.nameSurname', name: 'User' , sortable:false },
-      { prop:'id', name: 'Actions' , cellTemplate: this.tplProjectDeleteCell, flexGrow:1 ,sortable:false }
+      { name: 'Actions', flexGrow:1 ,sortable:false }
       ];
 
     this.setPage({ offset: 0 });
